@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8LT2WWTHY6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-8LT2WWTHY6');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA4 Measurement Protocol Example</title>
+</head>
+<body>
+    <h1>Send Event to GA4</h1>
+
+    <!-- Simple form to collect user name -->
+    <form id="myForm">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="response"></p>  <!-- Display the response from the server -->
+
+    <script>
+        // Handle form submission with AJAX
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            const name = document.getElementById('name').value;  // Get the input value
+
+            // Send the name data to the server via AJAX
+            $.ajax({
+                url: 'http://localhost:3000/submit',  // The server route
+                type: 'POST',  // Request method
+                contentType: 'application/json',  // Content type (JSON)
+                data: JSON.stringify({ name: name }),  // Data sent in JSON format
+                success: function(response) {
+                    // Display server's response message
+                    document.getElementById('response').innerText = response.message;
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    document.getElementById('response').innerText = 'Error sending data to the server.';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
